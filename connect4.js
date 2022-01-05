@@ -4,7 +4,7 @@
  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
  * board fills (tie)
  */
-const dimsBtn = document.querySelector('#change-dims');
+const changeBoardDims = document.querySelector('#change-dims');
 const currentTurn = document.querySelector('#player-turn');
 const gameContainer = document.querySelector('#game');
 let htmlBoard = document.querySelector('#board');
@@ -14,7 +14,7 @@ let currPlayer = 1;
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 let gameIsActive = true;
 
-dimsBtn.addEventListener('submit', function (e) {
+changeBoardDims.addEventListener('submit', (e) => {
   e.preventDefault();
   HEIGHT = e.target.height.value;
   WIDTH = e.target.width.value;
@@ -36,8 +36,7 @@ const destroyBoard = (boardElement) => {
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
-
-function makeBoard(height, width, container) {
+const makeBoard = (height, width, container) => {
   for (let y = 0; y < height; y++) {
     let row = [];
     for (let x = 0; x < width; x++) {
@@ -47,11 +46,9 @@ function makeBoard(height, width, container) {
   }
 }
 
-function makeHtmlBoard(height, width, boardElement) {
+const makeHtmlBoard = (height, width, boardElement) => {
   const htmlBoard = boardElement;
-
-  // Creates and populates top row of gameboard, including a click listener
-  const top = document.createElement("tr");
+  const top = document.createElement("tr"); // Creates and populates top row of gameboard, including a click listener
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
@@ -76,8 +73,7 @@ function makeHtmlBoard(height, width, boardElement) {
 }
 
 /** findSpotForCol: given column x, return top empty y (null if filled) */
-
-function findSpotForCol(x) {
+const findSpotForCol = (x) => {
   for (let y = HEIGHT - 1; y >= 0; y--) {
     const row = board[y];
     if (!row[x]) {
@@ -88,22 +84,20 @@ function findSpotForCol(x) {
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
-
-function placeInTable(y, x) {
+const placeInTable = (y, x) => {
   const piece = document.createElement('div');
   piece.classList.add('piece', `p${currPlayer}`, 'fall'); // .fall = animation
   document.getElementById(`${x}-${y}`).append(piece);
 }
 
 /** endGame: announce game end */
-
-function endGame(msg) {
+const endGame = (msg) => {
   alert(msg);
   gameIsActive = false;
 }
 
 /** handleClick: handle click of column top to play piece */
-function handleClick(evt) {
+const handleClick =(evt) => {
   if (gameIsActive) {
     const x = +evt.target.id;
     const y = findSpotForCol(x);
@@ -135,8 +129,8 @@ const switchPlayers = () => {
 };
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
-function checkForWin() {
-  function _win(cells) {
+const checkForWin = () => {
+  const _win = (cells) => {
     // Check four cells to see if they're all color of current player
     //  - cells: list of four (y, x) cells
     //  - returns true if all are legal coordinates & all match currPlayer
@@ -151,18 +145,18 @@ function checkForWin() {
     );
   }
 
-  for (let y = 0; y < HEIGHT; y++) {  // row representation, from 0 to height - 1
-    for (let x = 0; x < WIDTH; x++) { // col rep, from 0 to width - 1
-      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]]; // Looks for 4 consecutive (horiz)
-      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]]; // Looks for 4 consecutive (vert)
-      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]]; // 4 consec Diag / Down-Right
-      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];// 4 consec Diag / Down-Left
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
+      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
       // If any of the 4 checks above returns true, a match is found, true is returned
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
-    } // Otherwise, x increments by 1 and the same 4 checks are performed, offset in X by +1
+    } // Otherwise, x increments by 1 and the same 4 checks are performed, offset in x by +1
   }// after all X's are exhausted for a given y, y is offset by + 1, x resets to 0 and the process repeats
 }
 

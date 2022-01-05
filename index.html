@@ -1,0 +1,54 @@
+<!doctype html>
+
+<head>
+  <title>Connect 4</title>
+  <!-- include CSS for Jasmine -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine.css">
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+  <link href="connect4.css" rel="stylesheet">
+</head>
+</head>
+
+<body>
+  <h1>Connect 4</h1>
+  <div id="game">
+    <table id="board"></table>
+  </div>
+  <p id="play-label">Player <span id="player-turn" class="p1-text-color">1</span>'s Turn</p>
+  <form action="" id="change-dims">
+    <div id="sliders">
+      <label for="height">Height:</label>
+      <input type="range" id="height" name="height" min="4" max="10" value="6">
+      <label for="width">Width:</label>
+      <input type="range" id="width" name="width" min="4" max="10" value="7">
+    </div>
+    <div id="submit-div">
+      <input type="submit" id="dims-btn" value="Play">
+    </div>
+  </form>
+
+
+
+  <!-- uncoment the following to run Jasmine tests -->
+
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/3.3.0/boot.js"></script> -->
+
+  <script src="connect4.js"></script>
+
+
+  <!-- <script src="connect4.tests.js"></script> -->
+
+  <!-- end of Jasmine tests -->
+
+
+
+
+</body>
+
+</html>
